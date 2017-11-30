@@ -65,10 +65,14 @@ function initControls(gl) {
             settings.zoom_factor *= 1.02;
         }
         else if (key === ";" && (event.metaKey || event.ctrlKey)) {
+            /* Ctrl + ; - Take a screenshot */
+
             var data = $canvas[0].toDataURL("image/png");
 
-            var win = window.open('about:blank', 'screenshot');
-            win.document.write("<title>Newton's method screenshot</title><img src='"+data+"' alt='Screenshot'>");
+            var win = window.open('about:blank', 'Screenshot');
+            win.document.write("<title>Newton's method screenshot</title>"
+                + "<a download='screenshot.png' href='"+data+"'><img src='"+data+"' alt='Screenshot'></a>");
+
         }
     });
 
