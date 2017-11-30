@@ -79,6 +79,12 @@ var equations = [
         optgroup: "article",
         demoSkip: true
     },
+    {
+        value: "(z-1) * (z-2) * (z-3)",
+        text: "(z-1) · (z-2) · (z-3)",
+        optgroup: "article",
+        demoSkip: true
+    },
 
     /* Other */
     {
