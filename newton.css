@@ -154,6 +154,7 @@ div#newton-error > pre {
 .clickable {
     border-bottom: 1px solid #b73b33;
     padding: 0px 3px;
+    white-space: nowrap;
 }
 .clickable:hover {
     border-color: #dd483e;
