@@ -47,6 +47,7 @@ $(function() {
 
     $innerContainer.on('touchmove', function(event) {
         if (event.originalEvent.touches.length !== 1) {
+            /* Don't fire on multi-touch to avoid messing with default behavior too much */
             return;
         }
         var touch = event.originalEvent.touches[0];
@@ -65,14 +66,19 @@ $(function() {
 
     $innerContainer.on('touchforcechange', function(event) {
         if (event.originalEvent.touches.length !== 1) {
+            /* Don't fire on multi-touch */
             return;
         }
         var touch = event.originalEvent.touches[0];
 
         setTouchForce(touch.force);
+
+        event.preventDefault();
     });
 
-    $innerContainer.on('touchend', function() {
+    $innerContainer.on('touchend', function(event) {
         setTouchForce(0.0);
+
+        event.preventDefault();
     });
 });
