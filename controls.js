@@ -109,7 +109,7 @@ function initControls(gl) {
     $(".clickable").click(function(){
         var equation = $(this).data("equation");
         $('select#equation')[0].selectize.setValue(equation);
-        setEquation(gl);
+        setEquation(gl, true);
     });
 
     $("select#method").change(function() {
