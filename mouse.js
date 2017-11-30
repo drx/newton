@@ -72,7 +72,7 @@ $(function() {
         setTouchForce(touch.force);
     });
 
-    $innerContainer.on('touchend', function(event) {
+    $innerContainer.on('touchend', function() {
         setTouchForce(0.0);
     });
 });

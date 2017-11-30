@@ -9,7 +9,7 @@
  *
  * Selectize version 0.12.4
  */
-Selectize.define('typing_mode', function (options) {
+Selectize.define('typing_mode', function () {
     var self = this;
 
     this.setup = (function () {
@@ -21,7 +21,7 @@ Selectize.define('typing_mode', function (options) {
 
             this.on('type', function () {
                 /* Activate the add option on typing */
-                $active = self.$dropdown_content.find('[data-selectable]:first');
+                var $active = self.$dropdown_content.find('[data-selectable]:first');
                 self.setActiveOption($active);
 
             });
@@ -84,7 +84,7 @@ Selectize.prototype.positionDropdown = function() {
         top   : offset.top,
         left  : offset.left
     });
-}
+};
 
 Selectize.prototype.selectAdjacent = function(direction) {
     this.refreshOptions(false);
@@ -95,13 +95,13 @@ Selectize.prototype.selectAdjacent = function(direction) {
         this.setActiveOption($adjacent, true, true);
         this.onOptionSelect({currentTarget: $adjacent});
     }
-}
+};
 
 Selectize.prototype.setValueSilent = function(value) {
     this.silentChange = true;
     this.setValue(value);
     this.silentChange = false;
-}
+};
 
 function initSelectize(gl) {
     $('select#equation').selectize({

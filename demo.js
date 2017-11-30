@@ -40,7 +40,7 @@ function initDemoEquations() {
     demoEquations = demoEquations.filter(function(eq) {return !eq.demoSkip;});
 }
 
-function updateDemo(gl) {
+function updateDemo() {
     if (!demoEnabled || demoPaused) {
         return;
     }
@@ -70,7 +70,6 @@ function updateDemo(gl) {
         if (currentDemoIndex >= demoEquations.length) {
             currentDemoIndex = 0;
         }
-        console.log(currentDemoIndex, demoEquations.length)
         var equation = demoEquations[currentDemoIndex].value;
 
         var selectize = $('select#equation')[0].selectize;
@@ -79,5 +78,4 @@ function updateDemo(gl) {
     }
 
     $progressBar.css("width", progress+"%");
-
 }

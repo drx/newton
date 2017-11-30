@@ -26,7 +26,7 @@ function setProgram(gl, equation) {
     fragmentShaderSource = fragmentShaderSource.replace(/%%f%%/g, glsl.f);
     fragmentShaderSource = fragmentShaderSource.replace(/%%df%%/g, glsl.df);
 
-    if (settings.method != "newton") {
+    if (settings.method !== "newton") {
         fragmentShaderSource = fragmentShaderSource.replace(/%%ddf%%/g, glsl.ddf);
     }
 
@@ -40,7 +40,7 @@ function setProgram(gl, equation) {
     gl.linkProgram(program);
 
     if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-        var error = gl.getProgramInfoLog(shader);
+        var error = gl.getProgramInfoLog(program);
         gl.deleteProgram(program);
         throw "Program link error\n" + error;
     }
@@ -119,13 +119,13 @@ function resizeCanvas(gl) {
 function setUniform(gl, program, type, name, value) {
     var location = gl.getUniformLocation(program, name);
 
-    if (type == "1f") {
+    if (type === "1f") {
         gl.uniform1f(location, value);
     }
-    else if (type == "2f") {
+    else if (type === "2f") {
         gl.uniform2f(location, value[0], value[1]);
     }
-    else if (type == "1i") {
+    else if (type === "1i") {
         gl.uniform1i(location, value);
     }
 }

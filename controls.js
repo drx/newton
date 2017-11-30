@@ -52,13 +52,13 @@ function initControls(gl) {
     $(document).keypress(function (event) {
         var key = String.fromCharCode(event.which);
         console.log(key, event);
-        if (key == "=") {
+        if (key === "=") {
             settings.zoom_factor *= 0.98;
         }
-        else if (key == "-") {
+        else if (key === "-") {
             settings.zoom_factor *= 1.02;
         }
-        else if (key == ";" && (event.metaKey || event.ctrlKey)) {
+        else if (key === ";" && (event.metaKey || event.ctrlKey)) {
             var data = $canvas[0].toDataURL("image/png");
 
             var win = window.open('about:blank', 'screenshot');
@@ -106,4 +106,4 @@ function initControls(gl) {
         settings.method = $(this).val();
         setEquation(gl, true);
     });
-};
+}

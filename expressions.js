@@ -28,7 +28,7 @@ function derivative(expr)
         ];
 
         case "pow":
-            if (g[0] == 'real') {
+            if (g[0] === 'real') {
                 return ['mul',
                     ['mul', d(f), g],
                     ['pow',
@@ -45,14 +45,14 @@ function derivative(expr)
                         ['div', ['mul', d(f), g], f],
                         ['mul', d(g), ['ln', f]]
                     ]
-                ]
+                ];
             }
         case "real":
         case "imag":
             return zero;
 
         case "ident":
-            if (f == "z") return one;
+            if (f === "z") return one;
             else return zero;
 
         case "sin":
@@ -105,7 +105,7 @@ function derivative(expr)
 
         case "acos":
             /* acos(f)' = -asin(f)' */
-            return ['sub', zero, d(['asin', f])]
+            return ['sub', zero, d(['asin', f])];
 
         case "atan":
             /* atan(f)' = f' / (1 + f^2) */
@@ -143,7 +143,7 @@ function derivative(expr)
 
 function expr_is_const(expr) {
     var expr_type = expr[0];
-    return (expr_type == "real" || expr_type == "imag");
+    return (expr_type === "real" || expr_type === "imag");
 }
 
 function expr_is_zero(expr) {
@@ -151,8 +151,8 @@ function expr_is_zero(expr) {
     {
         var const_type = expr[1][0];
         var const_value = expr[1][1];
-        if (const_type == "int" && const_value === 0) return true;
-        if (const_type == "float" && const_value === 0.0) return true;
+        if (const_type === "int" && const_value === 0) return true;
+        if (const_type === "float" && const_value === 0.0) return true;
     }
     return false;
 }
@@ -162,8 +162,8 @@ function expr_is_one(expr) {
     {
         var const_type = expr[1][0];
         var const_value = expr[1][1];
-        if (const_type == "int" && const_value === 1) return true;
-        if (const_type == "float" && const_value === 1.0) return true;
+        if (const_type === "int" && const_value === 1) return true;
+        if (const_type === "float" && const_value === 1.0) return true;
     }
     return false;
 }
@@ -173,27 +173,27 @@ function simplify_const_op(expr_type, f, g)
     var f_type = f[0];
     var g_type = g[0];
 
-    if (f_type == g_type)  // matching types (real or imag)
+    if (f_type === g_type)  // matching types (real or imag)
     {
         var f_ctype = f[1][0];
         var g_ctype = g[1][0];
 
-        if (["int", "float"].indexOf(f_ctype) == -1 || ["int", "float"].indexOf(g_ctype) == -1) console.error("type mismatch");
+        if (["int", "float"].indexOf(f_ctype) === -1 || ["int", "float"].indexOf(g_ctype) === -1) console.error("type mismatch");
 
         var r_ctype = "int";
 
-        if (f_ctype == "float" || g_ctype == "float") r_ctype = "float";
+        if (f_ctype === "float" || g_ctype === "float") r_ctype = "float";
 
-        if (expr_type == "add")
+        if (expr_type === "add")
             return [f_type, [r_ctype, f[1][1] + g[1][1]]];
 
-        else if (expr_type == "sub")
+        else if (expr_type === "sub")
             return [f_type, [r_ctype, f[1][1] - g[1][1]]];
 
-        else if (expr_type == "mul")
+        else if (expr_type === "mul")
             return [f_type, [r_ctype, f[1][1] * g[1][1]]];
 
-        else if (expr_type == "div")
+        else if (expr_type === "div")
             return [f_type, ["float", f[1][1] / g[1][1]]];
     }
 
@@ -204,7 +204,7 @@ function simplify_expr(expr) {
     //console.log("expr", expr)
     var expr_type = expr[0];
 
-    if (expr_type == "real" || expr_type == "imag" || expr_type == "ident")
+    if (expr_type === "real" || expr_type === "imag" || expr_type === "ident")
         return expr;
 
     var simplified_args = expr.slice(1).map(simplify_expr);
@@ -217,7 +217,7 @@ function simplify_expr(expr) {
     switch (expr_type) {
         case "add":
         case "sub":
-            if (expr_is_zero(f) && expr_type == "add") return g;  // 0 + g = g  (but not 0 - g = g)
+            if (expr_is_zero(f) && expr_type === "add") return g;  // 0 + g = g  (but not 0 - g = g)
             else if (expr_is_zero(g)) return f;  // f + 0 = f
 
             break;
@@ -246,26 +246,26 @@ function simplify_expr(expr) {
             break;
 
         case "parens":
-            if (f.length == 2) return f;  // (f) = f
+            if (f.length === 2) return f;  // (f) = f
     }
-    if (["add", "sub", "mul", "div"].indexOf(expr_type) != -1) {
+    if (["add", "sub", "mul", "div"].indexOf(expr_type) !== -1) {
         if (expr_is_const(f) && expr_is_const(g)) {  // const(a) + const(b) = const(a+b)
             return simplify_const_op(expr_type, f, g);
         }
     }
-    if (["add", "mul"].indexOf(expr_type) != -1) {
+    if (["add", "mul"].indexOf(expr_type) !== -1) {
         if (!expr_is_const(f) && expr_is_const(g)) {  // put constants first
             var temp = f;
             f = g;
             g = temp;
         }
-        if (expr_is_const(f) && g[0] == expr_type && expr_is_const(g[1])) {  // const(a) + (const(b) + c) = const(a+b) + c
+        if (expr_is_const(f) && g[0] === expr_type && expr_is_const(g[1])) {  // const(a) + (const(b) + c) = const(a+b) + c
             var left = simplify_const_op(expr_type, f, g[1]);
             if (expr_is_const(left))
                 return [expr_type, left, g[2]];
         }
 
-        if (expr_is_const(g) && f[0] == expr_type && expr_is_const(f[2])) {  // (a + const(b)) + const(c) = a + const(b+c)
+        if (expr_is_const(g) && f[0] === expr_type && expr_is_const(f[2])) {  // (a + const(b)) + const(c) = a + const(b+c)
             var right = simplify_const_op(expr_type, g, f[2]);
             if (expr_is_const(right))
                 return [expr_type, f[1], right];
@@ -311,13 +311,14 @@ function convert_expr(ast, conv_type) {
         "int": ["%a.0", "%a", 1],
         "float": ["%a", "%a", 1],
         "real": ["complex(%a, 0.0)", "%a", 1],
-        "imag": ["complex(0.0, %a)", "%ai", 1],
+        "imag": ["complex(0.0, %a)", "%ai", 1]
     };
     var expr_type = ast[0];
     var conv_type_i = ['glsl', 'symbolic'].indexOf(conv_type);
+    var expr;
 
     if (typeof type_map[expr_type] !== 'undefined') {
-        var expr = type_map[expr_type][conv_type_i];
+        expr = type_map[expr_type][conv_type_i];
         //console.log(type_map[expr_type], conv_type_i, conv_type);
 
         for (var i=0; i<2; i++) {
@@ -326,20 +327,20 @@ function convert_expr(ast, conv_type) {
             var variable = ["%a", "%b"][i];
             var sub_expr = convert_expr(ast[i+1], conv_type);
 
-            if (conv_type == "symbolic" && typeof type_map[ast[i+1][0]] !== 'undefined') {
+            if (conv_type === "symbolic" && typeof type_map[ast[i+1][0]] !== 'undefined') {
                 var expr_order = type_map[expr_type][2];
                 var sub_expr_order = type_map[ast[i + 1][0]][2];
 
                 if (sub_expr_order > expr_order) {
                     /* Add parentheses around subexpressions, but don't add two (or more) pairs */
-                    if (sub_expr[0] != '(' && sub_expr.substr(-1) != ')' && expr.indexOf('('+variable+')') == -1) {
+                    if (sub_expr[0] !== '(' && sub_expr.substr(-1) !== ')' && expr.indexOf('('+variable+')') === -1) {
                         sub_expr = '(' + sub_expr + ')';
                     }
                 }
             }
 
-            if (conv_type == "symbolic" && expr_type == "pow" && i == 1) {
-                if (sub_expr.indexOf("<sup>") == -1) {
+            if (conv_type === "symbolic" && expr_type === "pow" && i === 1) {
+                if (sub_expr.indexOf("<sup>") === -1) {
                     sub_expr = '<sup>' + sub_expr + '</sup>';
                 }
                 else {
@@ -347,9 +348,9 @@ function convert_expr(ast, conv_type) {
                 }
             }
 
-            if (conv_type == "symbolic" && expr_type == "sqrt")
+            if (conv_type === "symbolic" && expr_type === "sqrt")
             {
-                if (sub_expr.indexOf("class='sqrt'") == -1) {
+                if (sub_expr.indexOf("class='sqrt'") === -1) {
                     expr = "<span class='sqrt-symbol'>√</span><span class='sqrt'>%a</span>";
                 }
             }
@@ -361,17 +362,17 @@ function convert_expr(ast, conv_type) {
         return expr;
     }
 
-    else if (expr_type == "main") {
-        var expr = convert_expr(ast[1], conv_type);
+    else if (expr_type === "main") {
+        expr = convert_expr(ast[1], conv_type);
 
-        if (conv_type == "symbolic") {
+        if (conv_type === "symbolic") {
             expr = expr.replace(/([0-9])·([a-z√])/g, '$1$2');  // 3·z -> 3z
         }
 
         return expr;
     }
 
-    else if (expr_type == "ident") {
+    else if (expr_type === "ident") {
         return ast[1];
     }
     else return ast;
@@ -408,14 +409,14 @@ function generateGlsl(equation) {
     console.log("df_symbolic", df_symbolic);
 
     var ddf_glsl = null, ddf_symbolic = null;
-    if (settings.method != "newton") {
+    if (settings.method !== "newton") {
         var ddf_ast = derivative(df_ast);
         ddf_ast = simplify_expr(ddf_ast);
         ddf_glsl = convert_expr(ddf_ast, "glsl");
-        var ddf_symbolic = convert_expr(ddf_ast, "symbolic");
+        ddf_symbolic = convert_expr(ddf_ast, "symbolic");
 
         console.log("ddf_glsl", ddf_glsl);
-        console.log("ddf_symbolic", ddf_symbolic)
+        console.log("ddf_symbolic", ddf_symbolic);
     }
 
     updateDerivatives(df_symbolic, ddf_symbolic);
