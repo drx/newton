@@ -45,7 +45,7 @@ function setProgram(gl, equation) {
         throw "Program link error\n" + error;
     }
 
-    resetDate();
+    resetTime();
     resetMouse();
     settings.zoom_factor = 4.0;
 
@@ -130,8 +130,7 @@ function setUniform(gl, program, type, name, value) {
     }
 }
 function setUniforms(gl) {
-    var now = (performance || Date).now()/1000.0;
-    var t = now-startDate;
+    var t = getTimeValue();
 
     var program = gl.getParameter(gl.CURRENT_PROGRAM);
 
@@ -143,9 +142,6 @@ function setUniforms(gl) {
     setUniform(gl, program, "2f", "m_", [mouseX * settings.zoom_factor, mouseY * settings.zoom_factor]);
     setUniform(gl, program, "2f", "f", [touchForce, 0.0]);
 
-    if (showFPS) {
-        $("#time").text("t = " + round(t));
-    }
 }
 function render(gl) {
     gl.clearColor(1.0, 0.0, 0.0, 1.0);

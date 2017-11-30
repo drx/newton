@@ -33,6 +33,12 @@ function updateFPS() {
     }
 }
 
+function updateTime(t) {
+    if (showFPS) {
+        $("#time").text("t = " + round(t));
+    }
+}
+
 function updateDerivatives(df, ddf) {
     if (df)
         $("#df").html("f′ = " + df);
