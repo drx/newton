@@ -1,0 +1,87 @@
+// Generated automatically by nearley
+// http://github.com/Hardmath123/nearley
+(function () {
+function id(x) {return x[0]; }
+var grammar = {
+    ParserRules: [
+    {"name": "main", "symbols": ["_", "AS", "_"], "postprocess": function(d) {return ['main', d[1]]}},
+    {"name": "P", "symbols": [{"literal":"("}, "_", "AS", "_", {"literal":")"}], "postprocess": function(d) {return ['parens', d[2]]}},
+    {"name": "P", "symbols": ["N"], "postprocess": id},
+    {"name": "P", "symbols": ["ident"], "postprocess": id},
+    {"name": "E", "symbols": ["P", "_", {"literal":"^"}, "_", "E"], "postprocess": function(d) {return ['pow', d[0], d[4]]}},
+    {"name": "E", "symbols": ["P"], "postprocess": id},
+    {"name": "MD", "symbols": ["MD", "_", {"literal":"*"}, "_", "E"], "postprocess": function(d) {return ['mul', d[0], d[4]]}},
+    {"name": "MD", "symbols": ["MD", "_", {"literal":"/"}, "_", "E"], "postprocess": function(d) {return ['div', d[0], d[4]]}},
+    {"name": "MD", "symbols": ["E"], "postprocess": id},
+    {"name": "AS", "symbols": ["AS", "_", {"literal":"+"}, "_", "MD"], "postprocess": function(d) {return ['add', d[0], d[4]]}},
+    {"name": "AS", "symbols": ["AS", "_", {"literal":"-"}, "_", "MD"], "postprocess": function(d) {return ['sub', d[0], d[4]]}},
+    {"name": "AS", "symbols": ["MD"], "postprocess": id},
+    {"name": "N", "symbols": ["complex"], "postprocess": id},
+    {"name": "N$string$1", "symbols": [{"literal":"a"}, {"literal":"s"}, {"literal":"i"}, {"literal":"n"}], "postprocess": function joiner(d) {return d.join('');}},
+    {"name": "N", "symbols": ["N$string$1", "_", "P"], "postprocess": function(d) {return ['asin', d[2]]}},
+    {"name": "N$string$2", "symbols": [{"literal":"a"}, {"literal":"c"}, {"literal":"o"}, {"literal":"s"}], "postprocess": function joiner(d) {return d.join('');}},
+    {"name": "N", "symbols": ["N$string$2", "_", "P"], "postprocess": function(d) {return ['acos', d[2]]}},
+    {"name": "N$string$3", "symbols": [{"literal":"a"}, {"literal":"t"}, {"literal":"a"}, {"literal":"n"}], "postprocess": function joiner(d) {return d.join('');}},
+    {"name": "N", "symbols": ["N$string$3", "_", "P"], "postprocess": function(d) {return ['atan', d[2]]}},
+    {"name": "N$string$4", "symbols": [{"literal":"a"}, {"literal":"c"}, {"literal":"o"}, {"literal":"t"}], "postprocess": function joiner(d) {return d.join('');}},
+    {"name": "N", "symbols": ["N$string$4", "_", "P"], "postprocess": function(d) {return ['acot', d[2]]}},
+    {"name": "N$string$5", "symbols": [{"literal":"a"}, {"literal":"s"}, {"literal":"e"}, {"literal":"c"}], "postprocess": function joiner(d) {return d.join('');}},
+    {"name": "N", "symbols": ["N$string$5", "_", "P"], "postprocess": function(d) {return ['asec', d[2]]}},
+    {"name": "N$string$6", "symbols": [{"literal":"a"}, {"literal":"c"}, {"literal":"s"}, {"literal":"c"}], "postprocess": function joiner(d) {return d.join('');}},
+    {"name": "N", "symbols": ["N$string$6", "_", "P"], "postprocess": function(d) {return ['acsc', d[2]]}},
+    {"name": "N$string$7", "symbols": [{"literal":"s"}, {"literal":"i"}, {"literal":"n"}, {"literal":"h"}], "postprocess": function joiner(d) {return d.join('');}},
+    {"name": "N", "symbols": ["N$string$7", "_", "P"], "postprocess": function(d) {return ['sinh', d[2]]}},
+    {"name": "N$string$8", "symbols": [{"literal":"c"}, {"literal":"o"}, {"literal":"s"}, {"literal":"h"}], "postprocess": function joiner(d) {return d.join('');}},
+    {"name": "N", "symbols": ["N$string$8", "_", "P"], "postprocess": function(d) {return ['cosh', d[2]]}},
+    {"name": "N$string$9", "symbols": [{"literal":"t"}, {"literal":"a"}, {"literal":"n"}, {"literal":"h"}], "postprocess": function joiner(d) {return d.join('');}},
+    {"name": "N", "symbols": ["N$string$9", "_", "P"], "postprocess": function(d) {return ['tanh', d[2]]}},
+    {"name": "N$string$10", "symbols": [{"literal":"s"}, {"literal":"i"}, {"literal":"n"}], "postprocess": function joiner(d) {return d.join('');}},
+    {"name": "N", "symbols": ["N$string$10", "_", "P"], "postprocess": function(d) {return ['sin', d[2]]}},
+    {"name": "N$string$11", "symbols": [{"literal":"c"}, {"literal":"o"}, {"literal":"s"}], "postprocess": function joiner(d) {return d.join('');}},
+    {"name": "N", "symbols": ["N$string$11", "_", "P"], "postprocess": function(d) {return ['cos', d[2]]}},
+    {"name": "N$string$12", "symbols": [{"literal":"t"}, {"literal":"a"}, {"literal":"n"}], "postprocess": function joiner(d) {return d.join('');}},
+    {"name": "N", "symbols": ["N$string$12", "_", "P"], "postprocess": function(d) {return ['tan', d[2]]}},
+    {"name": "N$string$13", "symbols": [{"literal":"c"}, {"literal":"o"}, {"literal":"t"}], "postprocess": function joiner(d) {return d.join('');}},
+    {"name": "N", "symbols": ["N$string$13", "_", "P"], "postprocess": function(d) {return ['cot', d[2]]}},
+    {"name": "N$string$14", "symbols": [{"literal":"s"}, {"literal":"e"}, {"literal":"c"}], "postprocess": function joiner(d) {return d.join('');}},
+    {"name": "N", "symbols": ["N$string$14", "_", "P"], "postprocess": function(d) {return ['sec', d[2]]}},
+    {"name": "N$string$15", "symbols": [{"literal":"c"}, {"literal":"s"}, {"literal":"c"}], "postprocess": function joiner(d) {return d.join('');}},
+    {"name": "N", "symbols": ["N$string$15", "_", "P"], "postprocess": function(d) {return ['csc', d[2]]}},
+    {"name": "N$string$16", "symbols": [{"literal":"c"}, {"literal":"i"}, {"literal":"s"}], "postprocess": function joiner(d) {return d.join('');}},
+    {"name": "N", "symbols": ["N$string$16", "_", "P"], "postprocess": function(d) {return ['cis', d[2]]}},
+    {"name": "N$string$17", "symbols": [{"literal":"s"}, {"literal":"q"}, {"literal":"r"}, {"literal":"t"}], "postprocess": function joiner(d) {return d.join('');}},
+    {"name": "N", "symbols": ["N$string$17", "_", "P"], "postprocess": function(d) {return ['sqrt', d[2]]}},
+    {"name": "N$string$18", "symbols": [{"literal":"l"}, {"literal":"n"}], "postprocess": function joiner(d) {return d.join('');}},
+    {"name": "N", "symbols": ["N$string$18", "_", "P"], "postprocess": function(d) {return ['ln', d[2]]}},
+    {"name": "N$string$19", "symbols": [{"literal":"e"}, {"literal":"x"}, {"literal":"p"}], "postprocess": function joiner(d) {return d.join('');}},
+    {"name": "N", "symbols": ["N$string$19", "_", "P"], "postprocess": function(d) {return ['exp', d[2]]}},
+    {"name": "complex", "symbols": ["float", {"literal":"i"}], "postprocess": function(d) {return ['imag', d[0]]}},
+    {"name": "complex", "symbols": ["float"], "postprocess": function(d) {return ['real', d[0]]}},
+    {"name": "float$ebnf$1$subexpression$1", "symbols": [{"literal":"-"}]},
+    {"name": "float$ebnf$1$subexpression$1", "symbols": [{"literal":"+"}]},
+    {"name": "float$ebnf$1", "symbols": ["float$ebnf$1$subexpression$1"], "postprocess": id},
+    {"name": "float$ebnf$1", "symbols": [], "postprocess": function(d) {return null;}},
+    {"name": "float", "symbols": ["float$ebnf$1", "int", {"literal":"."}, "int"], "postprocess": function(d) {var sign = d[0] || ''; return ['float', parseFloat(sign + d[1][1] + d[2] + d[3][1])]}},
+    {"name": "float$ebnf$2$subexpression$1", "symbols": [{"literal":"-"}]},
+    {"name": "float$ebnf$2$subexpression$1", "symbols": [{"literal":"+"}]},
+    {"name": "float$ebnf$2", "symbols": ["float$ebnf$2$subexpression$1"], "postprocess": id},
+    {"name": "float$ebnf$2", "symbols": [], "postprocess": function(d) {return null;}},
+    {"name": "float", "symbols": ["float$ebnf$2", "int"], "postprocess": function(d) {var sign = d[0] || ''; return ['int', parseInt(sign + d[1][1])]}},
+    {"name": "int$ebnf$1", "symbols": [/[0-9]/]},
+    {"name": "int$ebnf$1", "symbols": ["int$ebnf$1", /[0-9]/], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
+    {"name": "int", "symbols": ["int$ebnf$1"], "postprocess": function(d) {return ['int_str', d[0].join("")]}},
+    {"name": "ident$ebnf$1", "symbols": [/[a-z]/]},
+    {"name": "ident$ebnf$1", "symbols": ["ident$ebnf$1", /[a-z]/], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
+    {"name": "ident", "symbols": ["ident$ebnf$1"], "postprocess": function(d) {return ['ident', d[0].join("")]}},
+    {"name": "_$ebnf$1", "symbols": []},
+    {"name": "_$ebnf$1", "symbols": ["_$ebnf$1", /[\s]/], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
+    {"name": "_", "symbols": ["_$ebnf$1"], "postprocess": function(d) {return null }}
+]
+  , ParserStart: "main"
+}
+if (typeof module !== 'undefined'&& typeof module.exports !== 'undefined') {
+   module.exports = grammar;
+} else {
+   window.grammar = grammar;
+}
+})();
