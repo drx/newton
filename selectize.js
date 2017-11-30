@@ -127,13 +127,7 @@ function initSelectize(gl) {
             };
         },
         options: equations,
-        optgroups: [
-            {value: "user", label: "Your functions"},
-            {value: "polynomials", label: "Polynomials"},
-            {value: "trigonometric", label: "Trigonometric functions"},
-            {value: "demos", label: "Demos"},
-            {value: "other", label: "Other"},
-        ],
+        optgroups: optgroups,
         render: {
             option: function (item, escape) {
                 return '<div class="option">' + item.text + '</div>';

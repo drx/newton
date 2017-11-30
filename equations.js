@@ -1,4 +1,14 @@
+var optgroups = [
+    {value: "user", label: "Your functions"},
+    {value: "polynomials", label: "Polynomials"},
+    {value: "trigonometric", label: "Trigonometric functions"},
+    {value: "demos", label: "Demos"},
+    {value: "article", label: "From the article"},
+    {value: "other", label: "Other"}
+];
+
 var equations = [
+    /* Polynomials */
     {
         value: "z^3 + m",
         text: "z<sup>3</sup> + m",
@@ -26,6 +36,7 @@ var equations = [
         optgroup: "polynomials"
     },
 
+    /* Trigonometric */
     {
         value: "sin(z) + t",
         text: "sin(z) + t",
@@ -53,6 +64,7 @@ var equations = [
         demoSkip: true
     },
 
+    /* Demos */
     {
         value: "sqrt(z*(1-z)) - sin(t*0.13+0.75)*i - 0.0014*t - 0.0085",
         text: "<span class='sqrt-symbol'>√</span><span class='sqrt'>z·(1-z)</span> - sin(t·0.11+0.75)·i - 0.0014·t - 0.0085",
@@ -60,6 +72,15 @@ var equations = [
         demoOrder: 1
     },
 
+    /* From the article */
+    {
+        value: "z^3 + 1",
+        text: "z<sup>3</sup> + 1",
+        optgroup: "article",
+        demoSkip: true
+    },
+
+    /* Other */
     {
         value: "ln(z^7) + z^2 + m^3",
         text: "ln(z<sup>7</sup>) + z<sup>2</sup> + m<sup>3</sup>",
@@ -81,12 +102,6 @@ var equations = [
         text: "z<sup>2</sup> + z<sup>-7</sup> + 4m",
         optgroup: "other",
         demoOrder: 2
-    },
-
-    {
-        value: "z^3 + 1",
-        text: "z<sup>3</sup> + 1",
-        optgroup: "other",
-        demoSkip: true
     }
+
 ];
