@@ -82,4 +82,10 @@ $(function() {
 
         event.preventDefault();
     });
+
+    $canvas.on('webkitmouseforcechanged', function(event) {
+        setTouchForce(event.originalEvent.webkitForce);
+
+        event.preventDefault();
+    });
 });
