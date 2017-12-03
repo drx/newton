@@ -20,6 +20,7 @@ const float E = 2.7182818284590452353602874713527;
 const complex pi = complex(PI, 0.0);
 const complex e = complex(E, 0.0);
 const complex i = complex(0.0, 1.0);
+const complex c_nan = complex(10000.0, 20000.0);
 
 #define c_abs(a) length(a)
 
@@ -30,6 +31,7 @@ complex c_mul(complex a, complex b)
 
 complex c_div(complex a, complex b)
 {
+    if (dot(b,b) == 0.0) return c_nan;
     return complex(dot(a,b)/dot(b,b), (a.y*b.x-a.x*b.y)/dot(b,b));
 }
 
@@ -201,7 +203,7 @@ uniform float zoom_factor;
 uniform int mouse_used;
 
 complex m;
-uniform complex m_;
+uniform complex mouse;
 uniform complex t;
 uniform complex f;
 
@@ -212,6 +214,16 @@ vec3 hsv2rgb(vec3 c)
     return c.z * mix(K.xxx, clamp(p - K.xxx, 0.0, 1.0), c.y);
 }
 
+bool isbad(float v) {
+    if (!(v == 0.0 || v < 0.0 || 0.0 < v)) return true;
+    if (v >= 100000.0) return true;
+
+    return false;
+}
+
+bool isbad(complex z) {
+    return isbad(z.x) || isbad(z.y) || z == c_nan;
+}
 
 void main()
 {
@@ -239,7 +251,7 @@ void main()
     }*/
 
     if (mouse_used == 1) {
-        m = m_;
+        m = mouse;
     }
     else {
         m = c_cis(t);
@@ -250,14 +262,14 @@ void main()
         steps = step;
 
 #if METHOD == NEWTON
-        z_ = z - c_div((%%f%%), (%%df%%));
+        complex delta = c_div((%%f%%), (%%df%%));
 
 #elif METHOD == HALLEY
         complex f_ = (%%f%%);
         complex df_ = (%%df%%);
         complex ddf_ = (%%ddf%%);
 
-        z_ = z - c_div(
+        complex delta = c_div(
             c_mul(complex(2.0, 0.0), c_mul(f_, df_)),
             c_mul(complex(2.0, 0.0), c_mul(df_, df_)) - c_mul(f_, ddf_)
         );
@@ -267,17 +279,24 @@ void main()
         complex df_ = (%%df%%);
         complex ddf_ = (%%ddf%%);
 
-        z_ = z - c_mul(
+        complex delta = c_mul(
             c_div(f_, df_),
             complex(1.0, 0.0) + c_div(
                 c_mul(f_, ddf_),
                 c_mul(complex(2.0, 0.0), c_mul(df_, df_))
             )
         );
+
 #endif
+        z_ = z - delta;
+
+        if (isbad(delta)) {
+            gl_FragColor = vec4(0.0,0.0,0.0,1.0);
+            return;
+        }
 
         if (distance(z, z_) < 0.001)
-          break;
+            break;
 
         z = z_;
     }
