@@ -26,7 +26,6 @@ function setEquation(gl, force) {
             current_equation = equation;
         }
     } catch (error) {
-        console.error(error);
         newtonError(error);
     }
 }
@@ -49,6 +48,8 @@ function calculateCanvasWidth() {
 
 
 function newtonError(error) {
+    console.error(error);
+
     var $errorDiv = $("div#newton-error");
 
     if (typeof error.message !== "undefined") {
@@ -97,16 +98,26 @@ function affixCanvas() {
 }
 
 function initCanvas() {
-    $("canvas#newton").show();
+    try {
+        calculateCanvasWidth();
 
-    calculateCanvasWidth();
+        var gl = initWebGL();
+        if (!gl) {
+            throw "Could not initialize WebGL";
+        }
 
-    var gl = initWebGL();
+        setViewportScale();
+        initControls(gl);
+        initSelectize(gl);
+        affixCanvas();
 
-    setViewportScale();
-    initControls(gl);
-    initSelectize(gl);
-    affixCanvas();
+        $("canvas#newton").show();
+        $("div.container").addClass("webgl-works");
+
+    } catch (error) {
+        newtonError(error);
+        $("div.container").addClass("webgl-error");
+    }
 }
 
 $(initCanvas);
