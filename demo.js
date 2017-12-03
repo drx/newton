@@ -40,6 +40,18 @@ function initDemoEquations() {
     demoEquations = demoEquations.filter(function(eq) {return !eq.demoSkip;});
 }
 
+function selectNextDemo() {
+    currentDemoIndex += 1;
+    if (currentDemoIndex >= demoEquations.length) {
+        currentDemoIndex = 0;
+    }
+    var equation = demoEquations[currentDemoIndex].value;
+
+    var selectize = $('select#equation')[0].selectize;
+
+    selectize.setValueSilent(equation);
+}
+
 function updateDemo() {
     if (!demoEnabled || demoPaused) {
         return;
@@ -66,15 +78,7 @@ function updateDemo() {
         lastTransition = curTime;
         progress = 0;
 
-        currentDemoIndex += 1;
-        if (currentDemoIndex >= demoEquations.length) {
-            currentDemoIndex = 0;
-        }
-        var equation = demoEquations[currentDemoIndex].value;
-
-        var selectize = $('select#equation')[0].selectize;
-
-        selectize.setValueSilent(equation);
+        selectNextDemo();
     }
 
     $progressBar.css("width", progress+"%");
