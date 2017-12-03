@@ -108,7 +108,15 @@ function initControls(gl) {
 
     $(".clickable").click(function(){
         var equation = $(this).data("equation");
-        $('select#equation')[0].selectize.setValue(equation);
+        var method = $(this).data("method");
+
+        if (equation) {
+            $('select#equation')[0].selectize.setValue(equation);
+        }
+        else if (method) {
+            settings.method = method;
+            $("select#method").val(method);
+        }
         setEquation(gl, true);
     });
 
