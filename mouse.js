@@ -32,6 +32,7 @@ function setTouchForce(force) {
 }
 
 $(function() {
+    var $canvas = $("canvas#newton");
     var $innerContainer = $("div#newton-inner-container");
 
     $innerContainer.mousemove(function(event) {
@@ -45,7 +46,7 @@ $(function() {
 
     });
 
-    $innerContainer.on('touchmove', function(event) {
+    $canvas.on('touchmove', function(event) {
         if (event.originalEvent.touches.length !== 1) {
             /* Don't fire on multi-touch to avoid messing with default behavior too much */
             return;
@@ -53,18 +54,18 @@ $(function() {
         var touch = event.originalEvent.touches[0];
         //console.log(touch);
 
-        var x = touch.pageX - $innerContainer.offset().left;
-        var y = touch.pageY - $innerContainer.offset().top;
+        var x = touch.pageX - $canvas.offset().left;
+        var y = touch.pageY - $canvas.offset().top;
 
-        var width = $innerContainer[0].clientWidth;
-        var height = $innerContainer[0].clientHeight;
+        var width = $canvas[0].clientWidth;
+        var height = $canvas[0].clientHeight;
 
         setMouseCoords(x, y, width, height);
 
         event.preventDefault();
     });
 
-    $innerContainer.on('touchforcechange', function(event) {
+    $canvas.on('touchforcechange', function(event) {
         if (event.originalEvent.touches.length !== 1) {
             /* Don't fire on multi-touch */
             return;
@@ -76,7 +77,7 @@ $(function() {
         event.preventDefault();
     });
 
-    $innerContainer.on('touchend', function(event) {
+    $canvas.on('touchend', function(event) {
         setTouchForce(0.0);
 
         event.preventDefault();
