@@ -31,6 +31,14 @@ div#newton-inner-container {
 .fullscreen #newton-controls {
     bottom: auto;
     top: 0;
+
+    /* iPhone X */
+    padding-left: constant(safe-area-inset-left);
+    padding-right: constant(safe-area-inset-right);
+
+    /* iPhone X running iOS 11.2+ */
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
 }
 #newton-controls > button {
     background-color: transparent;

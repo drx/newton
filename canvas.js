@@ -70,7 +70,7 @@ function clearNewtonError() {
 }
 function setViewportScale() {
     var $viewport = $("meta[name=viewport]");
-    $viewport.attr("content", function(i, value) {return value + ', maximum-scale=1';});
+    $viewport.attr("content", function(i, value) {return value + ', maximum-scale=1,viewport-fit=cover';});
 }
 
 function affixCanvas() {
