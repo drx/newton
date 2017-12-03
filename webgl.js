@@ -83,6 +83,9 @@ function setGeometry(gl) {
 function initWebGL() {
     var canvas = document.getElementById("newton");
     var gl = canvas.getContext("webgl", {preserveDrawingBuffer: true});
+    if (!gl) {
+        gl = canvas.getContext("experimental-webgl", {preserveDrawingBuffer: true});
+    }
 
     resizeCanvas(gl);
     setEquation(gl);
