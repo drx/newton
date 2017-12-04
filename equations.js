@@ -379,11 +379,6 @@ var equations = [
         demoOrder: 2
     },
     {
-        value: "z^2 + 1i/z + m",
-        text: "z<sup>2</sup> + 1i/z + m",
-        optgroup: "laurent"
-    },
-    {
         value: "z^3 * (1+z)^(-2) + m",
         text: "z<sup>3</sup> · (1+z)<sup>-2</sup> + m",
         optgroup: "laurent"

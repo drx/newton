@@ -158,7 +158,7 @@ function expr_is_zero(expr) {
 }
 
 function expr_is_one(expr) {
-    if (expr_is_const(expr))
+    if (expr_is_const(expr) && expr[0] == "real")
     {
         var const_type = expr[1][0];
         var const_value = expr[1][1];
