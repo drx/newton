@@ -407,29 +407,45 @@ var equations = [
         optgroup: "article",
         demoSkip: true
     },
-
-    /* Other */
     {
-        value: "ln(z^7) + z^2 + m^3",
-        text: "ln(z<sup>7</sup>) + z<sup>2</sup> + m<sup>3</sup>",
-        optgroup: "other"
-    },
-    {
-        value: "z^2 + 1i/z + m",
-        text: "z<sup>2</sup> + 1i/z + m",
-        optgroup: "other"
-    },
-    {
-        value: "sqrt(z*(1-z)) + m",
-        text: "<span class='sqrt-symbol'>√</span><span class='sqrt'>z·(1-z)</span> + m",
-        optgroup: "other",
+        value: "z^4 + 3*z^2 + 2i*z - t - 1",
+        text: "z<sup>4</sup> + 3·z<sup>2</sup> + 2i·z - t - 1",
+        optgroup: "article",
         demoSkip: true
     },
     {
-        value: "z^2 + z^(-7) + 4*m",
-        text: "z<sup>2</sup> + z<sup>-7</sup> + 4m",
-        optgroup: "other",
-        demoOrder: 2
-    }
+        value: "z^6 + 3*t*z^4 - 10",
+        text: "z<sup>6</sup> + 3·t·z<sup>4</sup> - 10",
+        optgroup: "article",
+        demoSkip: true
+    },
+    {
+        value: "sec(z) + cis(t)",
+        text: "sec(z) + cis(t)",
+        optgroup: "article"
+    },
+    {
+        value: "cos(z) + m",
+        text: "cos(z) + m",
+        optgroup: "article",
+        demoSkip: true
+    },
+    {
+        value: "z^(2*m) + 1",
+        text: "z<sup>2m</sup> + 1",
+        optgroup: "article"
+    },
+    {
+        value: "(z-1) * (z+2i) * (z-m)",
+        text: "(z-1) · (z+2i) · (z-m)",
+        optgroup: "article",
+        demoSkip: true
+    },
+    {
+        value: "(z-1) * (z+2i) * (z-m)^(1+f)",
+        text: "(z-1) · (z+2i) · (z-m)<sup>1+f</sup>",
+        optgroup: "article",
+        demoSkip: true
+    },
 
 ];
