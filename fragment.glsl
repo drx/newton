@@ -43,6 +43,9 @@ complex c_div(complex a, complex b)
 
 float c_arg(complex a)
 {
+    if (a == complex(0, 0)) {
+        error = true;
+    }
     return atan(a.y, a.x);
 }
 
