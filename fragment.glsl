@@ -167,7 +167,7 @@ complex c_asin(complex z)
 
 complex c_acos(complex z)
 {
-    return complex(PI/2.0, 0) - z;
+    return complex(PI/2.0, 0) - c_asin(z);
 }
 
 complex c_atan(complex z)
