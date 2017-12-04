@@ -5,6 +5,16 @@ var demoEnabled = true;
 var demoEquations = null;
 var currentDemoIndex = 0;
 
+function startDemo() {
+    demoEnabled = true;
+    demoPaused = false;
+    currentDemoIndex = 0;
+    lastTransition = null;
+    $('select#equation')[0].selectize.setValueSilent(demoEquations[0]);
+
+    var $progressBarBg = $("div.transition-progress-bg");
+    $progressBarBg.show();
+}
 function stopDemo() {
     demoEnabled = false;
 

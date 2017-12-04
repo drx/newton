@@ -1,22 +1,22 @@
 var mouseX = 0.0, mouseY = 0.0;
-var mouseUsed = false;
+var mouseIdle = true;
 var touchForce = 0.0;
 
 function resetMouse() {
     mouseX = 0.0;
     mouseY = 0.0;
     touchForce = 0.0;
-    mouseUsed = false;
+    mouseIdle = true;
 }
 
 function setMouseCoords(x, y, width, height) {
     mouseX = (x - width/2.0) / width * (width/height);
     mouseY = -((y - height/2.0) / height);
-    mouseUsed = true;
+    mouseIdle = false;
 
     if (showFPS) {
-        var mX = mouseX * settings.zoom_factor;
-        var mY = mouseY * settings.zoom_factor;
+        var mX = mouseX * settings.zoomFactor;
+        var mY = mouseY * settings.zoomFactor;
         var sign = (mY >= 0) ? "+" : "-";
         var value = round(mX) + " " + sign + " " + round(Math.abs(mY)) + "i";
         $("#mouse-coords").text("m = " + value);

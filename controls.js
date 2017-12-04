@@ -75,6 +75,9 @@ function initControls(gl) {
                 + "<a download='screenshot.png' href='"+data+"'><img src='"+data+"' alt='Screenshot'></a>");
 
         }
+        else if (key === "." && (event.metaKey || event.ctrlKey)) {
+            recordMovie(gl);
+        }
     });
 
     $("#expand").click(function() {
@@ -110,6 +113,7 @@ function initControls(gl) {
     $(".clickable").click(function(){
         var equation = $(this).data("equation");
         var method = $(this).data("method");
+        var restartDemo = $(this).data("restart-demo");
 
         if (equation) {
             $('select#equation')[0].selectize.setValue(equation);
@@ -118,6 +122,9 @@ function initControls(gl) {
             settings.method = method;
             $("select#method").val(method);
         }
+        else if (restartDemo) {
+            startDemo();
+        }
         setEquation(gl, true);
     });
 
@@ -125,4 +132,36 @@ function initControls(gl) {
         settings.method = $(this).val();
         setEquation(gl, true);
     });
+}
+
+function recordMovie(gl) {
+    var equation, frame, index;
+    var $canvas = $("canvas#newton");
+    var $output = $("<div>").appendTo("body").hide();
+
+    $canvas.css({"width": "1920px", "height": "1080px"});
+    $canvas.css({"width": "192px", "height": "108px"});
+    stopDemo();
+
+    var $a = $("<a href='' download='' class='frame' title='' alt=''>lol</a>");
+    $a.appendTo($output);
+
+    for (equation=0; equation<demoEquations.length; equation++) {
+        for (frame = 0; frame < 5 * 60; frame++) {
+            console.log("Frame " + frame)
+            var t = frame / 60;
+            setTime(t);
+            render(gl);
+
+            index = equation * 5 * 60 + frame;
+            $a.attr("href", $canvas[0].toDataURL("image/png"));
+            $a.attr("download", "frame_" + index + ".png");
+
+            $("a.frame").each(function (i, el) {
+                el.click();
+            });
+        }
+
+        selectNextDemo();
+    }
 }
