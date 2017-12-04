@@ -193,7 +193,7 @@ var equations = [
         optgroup: "trigonometric"
     },
     {
-        value: "cos(0.5z)^0.7i + 1.4*cis(t)",  // nice demo
+        value: "cos(0.5*z)^0.7i + 1.4*cis(t)",  // nice demo
         text: "cos(0.5z)<sup>0.7i</sup> + 1.4·cis(t)",
         optgroup: "trigonometric"
     },
