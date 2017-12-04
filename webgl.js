@@ -19,10 +19,12 @@ function setProgram(gl, equation) {
     var vertexShaderSource = getFile("/static/newton/src/vertex.glsl");
     var vertexShader = compileShader(gl, vertexShaderSource, gl.VERTEX_SHADER);
 
-    var glsl = generateGlsl(equation);
+    var glsl = generateGlsl(equation, settings.idleFunction);
 
     var fragmentShaderSource = getFile("/static/newton/src/fragment.glsl");
     fragmentShaderSource = fragmentShaderSource.replace(/%%method%%/g, settings.method.toUpperCase());
+    fragmentShaderSource = fragmentShaderSource.replace(/%%idle_function%%/g, glsl.idle);
+
     fragmentShaderSource = fragmentShaderSource.replace(/%%f%%/g, glsl.f);
     fragmentShaderSource = fragmentShaderSource.replace(/%%df%%/g, glsl.df);
 
@@ -47,7 +49,7 @@ function setProgram(gl, equation) {
 
     resetTime();
     resetMouse();
-    settings.zoom_factor = 4.0;
+    settings.zoomFactor = 4.0;
 
     gl.useProgram(program);
 
@@ -139,10 +141,10 @@ function setUniforms(gl) {
 
     setUniform(gl, program, "1f", "width", gl.canvas.width);
     setUniform(gl, program, "1f", "height", gl.canvas.height);
-    setUniform(gl, program, "1f", "zoom_factor", settings.zoom_factor);
-    setUniform(gl, program, "1i", "mouse_used", (mouseUsed) ? 1 : 0);
+    setUniform(gl, program, "1f", "zoom_factor", settings.zoomFactor);
+    setUniform(gl, program, "1i", "mouse_idle", (mouseIdle) ? 1 : 0);
     setUniform(gl, program, "2f", "t", [t, 0.0]);
-    setUniform(gl, program, "2f", "mouse", [mouseX * settings.zoom_factor, mouseY * settings.zoom_factor]);
+    setUniform(gl, program, "2f", "mouse", [mouseX * settings.zoomFactor, mouseY * settings.zoomFactor]);
     setUniform(gl, program, "2f", "f", [touchForce, 0.0]);
 
 }

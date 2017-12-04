@@ -390,7 +390,7 @@ function parse(equation)
     return parser.results[0];
 }
 
-function generateGlsl(equation) {
+function generateGlsl(equation, idleFunction) {
     var f_eq = equation;
     var f_ast = parse(f_eq);
     console.log("f_ast", f_ast);
@@ -421,5 +421,7 @@ function generateGlsl(equation) {
 
     updateDerivatives(df_symbolic, ddf_symbolic);
 
-    return {f: f_glsl, df: df_glsl, ddf: ddf_glsl};
+    var idle_glsl = convert_expr(parse(idleFunction), "glsl");
+
+    return {f: f_glsl, df: df_glsl, ddf: ddf_glsl, idle: idle_glsl};
 }

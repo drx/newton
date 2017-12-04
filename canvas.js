@@ -20,6 +20,19 @@ function setEquation(gl, force) {
             equation = "z^3 + m";
         }
         if (equation !== current_equation || force) {
+            var idleFunction, matched;
+            matched = equations.filter(function (eq) {
+                return eq.value === equation;
+            });
+
+            if (matched.length === 1 && typeof matched[0].idleFunction !== "undefined") {
+                idleFunction = matched[0].idleFunction;
+            }
+            else {
+                idleFunction = "cis(t)";
+            }
+            settings.idleFunction = idleFunction;
+
             setProgram(gl, equation);
             clearNewtonError();
 

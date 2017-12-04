@@ -1,6 +1,7 @@
 var settings = {
     method: "newton",
-    zoom_factor: 4.0
+    zoomFactor: 4.0,
+    idleFunction: "cis(t)"
 };
 
 var prevTime;
@@ -59,10 +60,10 @@ function initControls(gl) {
         var key = String.fromCharCode(event.which);
         console.log(key, event);
         if (key === "=") {
-            settings.zoom_factor *= 0.98;
+            settings.zoomFactor *= 0.98;
         }
         else if (key === "-") {
-            settings.zoom_factor *= 1.02;
+            settings.zoomFactor *= 1.02;
         }
         else if (key === ";" && (event.metaKey || event.ctrlKey)) {
             /* Ctrl + ; - Take a screenshot */

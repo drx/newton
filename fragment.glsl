@@ -200,7 +200,7 @@ uniform float width;
 uniform float height;
 uniform float zoom_factor;
 
-uniform int mouse_used;
+uniform int mouse_idle;
 
 complex m;
 uniform complex mouse;
@@ -250,11 +250,11 @@ void main()
         return;
     }*/
 
-    if (mouse_used == 1) {
+    if (mouse_idle == 0) {
         m = mouse;
     }
     else {
-        m = c_cis(t);
+        m = (%%idle_function%%);
     }
 
     for (int step=0; step<NUM_STEPS; step++)
