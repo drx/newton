@@ -22,6 +22,8 @@ const complex e = complex(E, 0.0);
 const complex i = complex(0.0, 1.0);
 const complex c_nan = complex(10000.0, 20000.0);
 
+bool error;
+
 #define c_abs(a) length(a)
 
 complex c_mul(complex a, complex b)
@@ -31,8 +33,12 @@ complex c_mul(complex a, complex b)
 
 complex c_div(complex a, complex b)
 {
-    if (dot(b,b) == 0.0) return c_nan;
-    return complex(dot(a,b)/dot(b,b), (a.y*b.x-a.x*b.y)/dot(b,b));
+    float denominator = dot(b,b);
+    if (denominator == 0.0) {
+        error = true;
+        return c_nan;
+    }
+    return complex(dot(a,b)/denominator, (a.y*b.x-a.x*b.y)/denominator);
 }
 
 float c_arg(complex a)
@@ -260,7 +266,7 @@ void main()
     for (int step=0; step<NUM_STEPS; step++)
     {
         steps = step;
-
+        error = false;
 #if METHOD == NEWTON
         complex delta = c_div((%%f%%), (%%df%%));
 
@@ -290,7 +296,7 @@ void main()
 #endif
         z_ = z - delta;
 
-        if (isbad(delta)) {
+        if (isbad(delta) || error) {
             gl_FragColor = vec4(0.0,0.0,0.0,1.0);
             return;
         }
