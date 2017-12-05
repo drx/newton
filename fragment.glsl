@@ -323,7 +323,7 @@ void main()
         saturation = 0.0;
 
     /* Darken based on the number of steps taken */
-    v = 0.95 * max(1.0-float(steps)*0.025, 0.05);
+    v = 0.95 * max(1.0-float(steps)*0.025, 0.00);
 
     /* Make huge roots black */
     if (c_abs(z) > 100.0)
