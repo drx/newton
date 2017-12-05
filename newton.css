@@ -202,6 +202,8 @@ div#newton-error > pre {
 
 #newton-prefs {
     padding: 5px 0 0 0;
+    color: #aaa;
+    mix-blend-mode: screen;
 }
 #newton-prefs > div, #newton-prefs > select {
     font-size: 10px;
