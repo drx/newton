@@ -60,8 +60,8 @@ var equations = [
 
     /* Trigonometric */
     {
-        value: "sin(z) + t",
-        text: "sin(z) + t",
+        value: "sin(z) + t + 0.2",
+        text: "sin(z) + t + 0.2",
         optgroup: "trigonometric",
         demoOrder: 10.5
     },
