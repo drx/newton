@@ -115,7 +115,7 @@ function initSelectize(gl) {
         addPrecedence: true,
         valueField: "value",
         onChange: function () {
-            setEquation(gl);
+            updateEquation(gl);
             if (!this.silentChange) {
                 stopDemo();
             }

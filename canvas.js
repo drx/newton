@@ -1,6 +1,7 @@
 var currentEquation = null;
 
 function getFile(url) {
+
     var contents = "";
 
     $.ajax({method: 'GET', async: false, url: url, success: function(data) {
@@ -10,14 +11,19 @@ function getFile(url) {
     return contents;
 }
 
-
-function setEquation(gl, force) {
+/**
+ * Check if the current equation changed and update
+ * the WebGL program if necessary.
+ * @param {WebGLRenderingContext} gl
+ * @param {boolean} force
+ */
+function updateEquation(gl, force) {
     force = force || false;
 
     try {
         var equation = $('select#equation').val();
         if (!equation) {
-            equation = "z^3 + m";
+            equation = equations[0].value;
         }
         if (equation !== currentEquation || force) {
             var idleFunction, matched;
@@ -43,6 +49,10 @@ function setEquation(gl, force) {
     }
 }
 
+/**
+ * Calculate the correct canvas width based on its
+ * parent container
+ */
 function calculateCanvasWidth() {
     var $canvas = $("canvas#newton");
     var $canvasContainer = $("div#newton-container");
@@ -58,7 +68,6 @@ function calculateCanvasWidth() {
     $canvas.css('width', width);
     $canvas.parent().css('width', width);  /* set the inner container width as well */
 }
-
 
 function newtonError(error) {
     console.error(error);

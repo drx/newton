@@ -90,7 +90,7 @@ function initWebGL() {
     }
 
     resizeCanvas(gl);
-    setEquation(gl);
+    updateEquation(gl);
     requestRender(gl);
 
     return gl;
