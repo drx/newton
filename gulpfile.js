@@ -2,6 +2,8 @@ var gulp = require('gulp');
 
 var jshint = require('gulp-jshint');
 var concat = require('gulp-concat');
+var stripDebug = require('gulp-strip-debug');
+
 
 gulp.task('lint', function() {
     return gulp.src('*.js')
@@ -12,6 +14,7 @@ gulp.task('lint', function() {
 gulp.task('scripts', function() {
     return gulp.src(['*.js', '!gulpfile.js'])
         .pipe(concat('newton.js'))
+        .pipe(stripDebug())
         .pipe(gulp.dest('dist'));
 });
 
