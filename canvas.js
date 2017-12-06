@@ -1,4 +1,4 @@
-var current_equation = null;
+var currentEquation = null;
 
 function getFile(url) {
     var contents = "";
@@ -19,7 +19,7 @@ function setEquation(gl, force) {
         if (!equation) {
             equation = "z^3 + m";
         }
-        if (equation !== current_equation || force) {
+        if (equation !== currentEquation || force) {
             var idleFunction, matched;
             matched = equations.filter(function (eq) {
                 return eq.value === equation;
@@ -36,7 +36,7 @@ function setEquation(gl, force) {
             setProgram(gl, equation);
             clearNewtonError();
 
-            current_equation = equation;
+            currentEquation = equation;
         }
     } catch (error) {
         newtonError(error);
@@ -81,9 +81,26 @@ function clearNewtonError() {
     var $errorDiv = $("div#newton-error");
     $errorDiv.hide();
 }
+
+function iOSversion() {
+    /* Credit: https://stackoverflow.com/a/14223920 */
+    if (/iP(hone|od|ad)/.test(navigator.platform)) {
+        var v = (navigator.appVersion).match(/OS (\d+)_(\d+)_?(\d+)?/);
+        return parseInt(v[1], 10);
+    }
+    return -1;
+}
+
+
 function setViewportScale() {
     var $viewport = $("meta[name=viewport]");
-    $viewport.attr("content", function(i, value) {return value + ', maximum-scale=1,viewport-fit=cover';});
+
+    var content = "maximum-scale=1";
+
+    if (iOSversion() >= 11) {
+        content += ",viewport-fit=cover";
+    }
+    $viewport.attr("content", function(i, value) {return value + ',' + content;});
 }
 
 function affixCanvas() {
