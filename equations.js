@@ -131,12 +131,12 @@ var equations = [
         text: "z · cosh(1/z) + 0.25*m",
         optgroup: "trigonometric"
     },
-    {
+    /*{
         value: "z - z^3/6 + z^5/120 - z^7/5040 + z^9/362880 + z^11/39916800",  // skip
         text: "z - z<sup>3</sup>/3! + z<sup>5</sup>/5! - z<sup>7</sup>/7! + z<sup>9</sup>/9! + z<sup>11</sup>/11!",
         optgroup: "trigonometric",
         demoSkip: true
-    },
+    },*/
     {
         value: "tan(z) - z - z^3/3 + m",
         text: "tan(z) - z - z<sup>3</sup>/3 + m",
