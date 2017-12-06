@@ -2,7 +2,7 @@ var settings = {
     method: "newton",
     zoomFactor: 4.0,
     idleFunction: "cis(t)",
-    debug: true
+    debug: false
 };
 
 var prevTime;
@@ -173,8 +173,6 @@ function recordMovie(gl) {
     for (equation=0; equation<demoEquations.length; equation++) {
         for (frame = 0; frame < 5 * 60; frame++) {
             index = equation * 5 * 60 + frame;
-
-            if (index <= 16664) continue;
 
             console.log("Frame " + index + "/" + (5*60*demoEquations.length));
             var t = frame / 60;
