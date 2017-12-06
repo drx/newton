@@ -129,6 +129,8 @@ function affixCanvas() {
 
 function initCanvas() {
     try {
+        $("div#newton-container").show();
+
         calculateCanvasWidth();
 
         var gl = initWebGL();
