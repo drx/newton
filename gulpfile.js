@@ -10,7 +10,7 @@ gulp.task('lint', function() {
 });
 
 gulp.task('scripts', function() {
-    return gulp.src('*.js')
+    return gulp.src(['*.js', '!gulpfile.js'])
         .pipe(concat('newton.js'))
         .pipe(gulp.dest('dist'));
 });
