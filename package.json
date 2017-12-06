@@ -1,0 +1,31 @@
+{
+  "name": "newton",
+  "version": "1.0.0",
+  "description": "Newton's method visualizer in WebGL",
+  "main": "canvas.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/drx/newton.git"
+  },
+  "keywords": [
+    "webgl",
+    "glsl",
+    "fractals"
+  ],
+  "author": "Luke Zapart <luke@zapart.org>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/drx/newton/issues"
+  },
+  "homepage": "https://github.com/drx/newton#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-jshint": "^2.0.4",
+    "gulp-nearley": "^1.0.0",
+    "jshint": "^2.9.5"
+  }
+}
