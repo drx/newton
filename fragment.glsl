@@ -241,23 +241,8 @@ void main()
     float normalizedX = (gl_FragCoord.x - width/2.0) / width * (width / height);
     float normalizedY = (gl_FragCoord.y - height/2.0) / height;
 
-
     z.x = normalizedX*zoom_factor;
     z.y = normalizedY*zoom_factor;
-
-    /*float radius = 0.01;
-
-    complex in_z = z;
-    if (distance(z, complex(0, 1)) < radius
-        || distance(z, complex(0.333333, 0.666666)) < radius
-        || distance(z, complex(0.582222, 0.924444)) < radius
-        || distance(z, complex(0.508791, 0.868166)) < radius
-        //|| distance(z, complex(0.500069, 0.865982)) < radius
-        //|| distance(z, complex(0.500000, 0.866025)) < radius
-    ) {
-        gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
-        return;
-    }*/
 
     if (mouse_idle == 0) {
         m = mouse;
@@ -331,8 +316,4 @@ void main()
 
     vec3 c = hsv2rgb(vec3(hue, saturation, v));
     gl_FragColor = vec4(c.rgb, 1.0);
-
-    /*if (z.x < 0.4999955 || z.x > 0.5 || z.y < 0.866 || z.y > 0.867) {
-        gl_FragColor = vec4(0.0,0.0,0.0,0.0);
-    }*/
 }
