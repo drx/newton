@@ -372,6 +372,12 @@ var equations = [
         demoOrder: 1
     },
     {
+        value: "sqrt(z*(1-z)) - sin(t*0.1)*i - 0.001*t - 0.001",
+        text: "<span class='sqrt-symbol'>√</span><span class='sqrt'>z·(1-z)</span> - sin(t·0.1)·i - 0.001·t - 0.001",
+        optgroup: "sqrt",
+        demoSkip: true
+    },
+    {
         value: "(sqrt(z)-1) * (sqrt(z-m))",  // mandelbrot?
         text: "(<span class='sqrt-symbol'>√</span><span class='sqrt'>z</span> - 1) · <span class='sqrt-symbol'>√</span><span class='sqrt'>z-m </span>",
         optgroup: "sqrt"
