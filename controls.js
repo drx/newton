@@ -1,7 +1,8 @@
 var settings = {
     method: "newton",
     zoomFactor: 4.0,
-    idleFunction: "cis(t)"
+    idleFunction: "cis(t)",
+    debug: false
 };
 
 var prevTime;
@@ -75,8 +76,11 @@ function initControls(gl) {
                 + "<a download='screenshot.png' href='"+data+"'><img src='"+data+"' alt='Screenshot'></a>");
 
         }
-        else if (key === "." && (event.metaKey || event.ctrlKey)) {
+        else if (settings.debug && key === "." && (event.metaKey || event.ctrlKey)) {
             recordMovie(gl);
+        }
+        else if (settings.debug && key === "," && (event.metaKey || event.ctrlKey)) {
+            take4xScreenshot(gl, 288, 162);
         }
     });
 
@@ -134,26 +138,47 @@ function initControls(gl) {
     });
 }
 
+function take4xScreenshot(gl, width, height) {
+    var $canvas = $("canvas#newton");
+    var $output = $("<div>").appendTo("body").hide();
+
+    var $a = $("<a href='' download='' class='frame' title='' alt=''>link</a>");
+    $a.appendTo($output);
+
+    for (var zoom=1; zoom<5; zoom++) {
+        $canvas.css({"width": (zoom*width)+"px", "height": (zoom*height)+"px"});
+        render(gl);
+
+        $a.attr("href", $canvas[0].toDataURL("image/png"));
+        $a.attr("download", "screenshot-" + zoom + "x.png");
+
+        $("a.frame").each(function (i, el) {
+            el.click();
+        });
+    }
+    $a.remove();
+}
+
 function recordMovie(gl) {
     var equation, frame, index;
     var $canvas = $("canvas#newton");
     var $output = $("<div>").appendTo("body").hide();
 
     $canvas.css({"width": "1920px", "height": "1080px"});
-    $canvas.css({"width": "192px", "height": "108px"});
     stopDemo();
 
-    var $a = $("<a href='' download='' class='frame' title='' alt=''>lol</a>");
+    var $a = $("<a href='' download='' class='frame' title='' alt=''>link</a>");
     $a.appendTo($output);
 
     for (equation=0; equation<demoEquations.length; equation++) {
         for (frame = 0; frame < 5 * 60; frame++) {
-            console.log("Frame " + frame)
+            index = equation * 5 * 60 + frame;
+
+            console.log("Frame " + index + "/" + (5*60*demoEquations.length));
             var t = frame / 60;
             setTime(t);
             render(gl);
 
-            index = equation * 5 * 60 + frame;
             $a.attr("href", $canvas[0].toDataURL("image/png"));
             $a.attr("download", "frame_" + index + ".png");
 
