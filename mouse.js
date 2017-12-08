@@ -9,6 +9,14 @@ function resetMouse() {
     mouseIdle = true;
 }
 
+/** Normalize the mouse coordinates according to the canvas width/height and zoom factor.
+ *  Display the mouse coords in the preferences tab if it's open.
+ *
+ * @param {number} x
+ * @param {number} y
+ * @param {number} width
+ * @param {number} height
+ */
 function setMouseCoords(x, y, width, height) {
     mouseX = (x - width/2.0) / width * (width/height);
     mouseY = -((y - height/2.0) / height);
@@ -23,6 +31,7 @@ function setMouseCoords(x, y, width, height) {
     }
 }
 
+/** Set the touch force and display it in the preferences tab. */
 function setTouchForce(force) {
     touchForce = force;
 

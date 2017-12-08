@@ -1,3 +1,4 @@
+/** Stores the current equation so that we can check if it changed in updateEquation() */
 var currentEquation = null;
 
 function getFile(url) {
@@ -69,6 +70,13 @@ function calculateCanvasWidth() {
     $canvas.parent().css('width', width);  /* set the inner container width as well */
 }
 
+/**
+ * Print a WebGL error on top of the canvas.
+ *
+ * This happens after WebGL is initialized.
+ * Examples: equation parse error, GLSL errors
+ * @param error
+ */
 function newtonError(error) {
     console.error(error);
 
@@ -86,13 +94,21 @@ function newtonError(error) {
     $errorDiv.html(error).show();
 }
 
+/**
+ * Clear WebGL error messages.
+ */
 function clearNewtonError() {
     var $errorDiv = $("div#newton-error");
     $errorDiv.hide();
 }
 
+/**
+ * Detect the iOS version.
+ *
+ * Credit: https://stackoverflow.com/a/14223920
+ * @returns {number} iOS version or -1 if not iOS
+ */
 function iOSversion() {
-    /* Credit: https://stackoverflow.com/a/14223920 */
     if (/iP(hone|od|ad)/.test(navigator.platform)) {
         var v = (navigator.appVersion).match(/OS (\d+)_(\d+)_?(\d+)?/);
         return parseInt(v[1], 10);
@@ -100,7 +116,11 @@ function iOSversion() {
     return -1;
 }
 
-
+/** Set up the viewport for mobile.
+ *
+ * - Sets the initial scale to 1.0 so that the canvas fills the screen.
+ * - Sets the viewport fit so that iPhone X full screen covers the entire screen.
+ * */
 function setViewportScale() {
     var $viewport = $("meta[name=viewport]");
 
@@ -112,6 +132,7 @@ function setViewportScale() {
     $viewport.attr("content", function(i, value) {return value + ',' + content;});
 }
 
+/** Affix the canvas container so that it stays fixed while the article scrolls */
 function affixCanvas() {
     var $canvasContainer = $("div#newton-container");
 
@@ -136,6 +157,16 @@ function affixCanvas() {
     });
 }
 
+/** Initialize the canvas.
+ *
+ * 1. Show the container (the default is to hide it for NoScript etc.)
+ * 2. Now that the container is displayed, calculate the correct canvas widths.
+ * 3. Set the viewport up for mobile and iPhone X.
+ * 4. Initialize the controls.
+ * 5. Initialize the selectize control.
+ * 6. Add either the webgl-works or webgl-error class to the container divs,
+ *    depending on outcome.
+ */
 function initCanvas() {
     try {
         $("div#newton-container").show();

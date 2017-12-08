@@ -1,4 +1,4 @@
-/*
+/**
  * Typing mode plugin by Luan Fonseca (December 2014)
  * https://github.com/brianreavis/selectize.js/blob/5d81539d677e8c2411215a1fb81789a8006c77f2/src/plugins/typing_mode/plugin.js#L1
  *
@@ -72,6 +72,7 @@ Selectize.define('typing_mode', function () {
     })();
 });
 
+/** Position the dropdown correctly */
 Selectize.prototype.positionDropdown = function() {
     var $control = this.$control;
     var offset = $control.position();
@@ -86,6 +87,10 @@ Selectize.prototype.positionDropdown = function() {
     });
 };
 
+/** Select the previous or next option.
+ *
+ * @param direction
+ */
 Selectize.prototype.selectAdjacent = function(direction) {
     this.refreshOptions(false);
     var $option = this.getOption(this.getValue());
@@ -97,12 +102,20 @@ Selectize.prototype.selectAdjacent = function(direction) {
     }
 };
 
+/** Set a silent flag while setting the value.
+ *
+ * @param {boolean} value
+ */
 Selectize.prototype.setValueSilent = function(value) {
     this.silentChange = true;
     this.setValue(value);
     this.silentChange = false;
 };
 
+/** Initialize the selectize control.
+ *
+ * @param {WebGLRenderingContext} gl
+ */
 function initSelectize(gl) {
     $('select#equation').selectize({
         plugins: ['typing_mode'],

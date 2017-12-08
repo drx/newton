@@ -1,3 +1,10 @@
+/** Compile the given shader and handle any errors that arise during compilation.
+ *
+ * @param {WebGLRenderingContext} gl
+ * @param {string} source
+ * @param type gl.VERTEX_SHADER or gl.FRAGMENT_SHADER
+ * @returns {WebGLShader}
+ */
 function compileShader(gl, source, type) {
     var shader = gl.createShader(type);
     gl.shaderSource(shader, source);
@@ -60,6 +67,10 @@ function setProgram(gl, equation) {
     return program;
 }
 
+/** Set up the geometry - a simple rectangle.
+ *
+ * @param {WebGLRenderingContext} gl
+ */
 function setGeometry(gl) {
     var buffer = gl.createBuffer();
 
@@ -82,6 +93,10 @@ function setGeometry(gl) {
     gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
 }
 
+/** Initialize WebGL context, resize the canvas,
+ *  setup the initial equation and start the rendering loop.
+ *
+ * @returns {WebGLRenderingContext} */
 function initWebGL() {
     var canvas = document.getElementById("newton");
     var gl = canvas.getContext("webgl", {preserveDrawingBuffer: true});
@@ -96,6 +111,13 @@ function initWebGL() {
     return gl;
 }
 
+/** Request an animation frame and call the renderer when the browser is ready
+ *  to process a new frame.
+ *
+ *  I know people say not to setTimeout this, but it's helped with some implementations.
+ *
+ * @param {WebGLRenderingContext} gl
+ */
 function requestRender(gl) {
     var render_callback = function (now) {
         render(gl, now);
@@ -107,6 +129,11 @@ function requestRender(gl) {
     window.requestAnimationFrame(render_callback);
 }
 
+/** Resize the canvas to keep updated with window resizing, keeping in mind
+ * the device pixel ratio (2x and 3x displays).
+ *
+  * @param {WebGLRenderingContext} gl
+ */
 function resizeCanvas(gl) {
     var devicePixelRatio = window.devicePixelRatio || 1;
 
@@ -121,6 +148,14 @@ function resizeCanvas(gl) {
     }
 }
 
+/** Set the value of an uniform.
+ *
+ * @param {WebGLRenderingContext} gl
+ * @param {WebGLProgram} program
+ * @param {string} type
+ * @param {string} name
+ * @param value
+ */
 function setUniform(gl, program, type, name, value) {
     var location = gl.getUniformLocation(program, name);
 
@@ -134,6 +169,11 @@ function setUniform(gl, program, type, name, value) {
         gl.uniform1i(location, value);
     }
 }
+
+/** Update the values of every uniform in the shader.
+ *
+ * @param {WebGLRenderingContext} gl
+ */
 function setUniforms(gl) {
     var t = getTime();
 
@@ -148,6 +188,20 @@ function setUniforms(gl) {
     setUniform(gl, program, "2f", "f", [touchForce, 0.0]);
 
 }
+
+/** Render a frame.
+ *
+ * 1. Clear the buffer.
+ * 2. Update the canvas size if the window was resized.
+ * 3. Set up the geometry.
+ * 4. Set the values of uniforms in the program.
+ * 5. Draw the rectangle.
+ * 6. Sync with gl.finish()
+ * 7. Update the controls display text.
+ * 8. Update the demo, if necessary.
+ *
+ * @param {WebGLRenderingContext} gl
+ */
 function render(gl) {
     gl.clearColor(1.0, 0.0, 0.0, 1.0);
     gl.clear(gl.COLOR_BUFFER_BIT);

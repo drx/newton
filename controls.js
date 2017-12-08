@@ -1,3 +1,4 @@
+/** Currently selected settings */
 var settings = {
     method: "newton",
     zoomFactor: 4.0,
@@ -9,10 +10,16 @@ var prevTime;
 var lag;
 var showFPS = false;
 
+/** Round a number to 2 decimal places.
+ *
+ * @param number
+ * @returns {number}
+ */
 function round(number) {
     return Math.round(number*100)/100;
 }
 
+/** Toggle the FPS counter display */
 function toggleFPS() {
     showFPS = !showFPS;
 
@@ -21,6 +28,8 @@ function toggleFPS() {
         lag = 0;
     }
 }
+
+/** Update the FPS counter */
 function updateFPS() {
     if (showFPS) {
         var curTime = (performance || Date).now();
@@ -35,12 +44,18 @@ function updateFPS() {
     }
 }
 
+/** Update the time display in the preferences tab */
 function updateTime(t) {
     if (showFPS) {
         $("#time").text("t = " + round(t));
     }
 }
 
+/** Update the derivatives in the preferences tab
+ *
+ * @param {string} df
+ * @param {string} ddf
+ */
 function updateDerivatives(df, ddf) {
     if (df)
         $("#df").html("f′ = " + df);
@@ -53,6 +68,10 @@ function updateDerivatives(df, ddf) {
         $("#ddf").html("");
 }
 
+/** Set up keyboard and button controls.
+ *
+ * @param {WebGLRenderingContext} gl
+ */
 function initControls(gl) {
     var $canvas = $("canvas#newton");
     var $canvasContainer = $("div#newton-container");
@@ -138,6 +157,12 @@ function initControls(gl) {
     });
 }
 
+/** Take -1x, -2x, -3x and -4x screenshots at the same time.
+ *
+ * @param {WebGLRenderingContext} gl
+ * @param {number} width
+ * @param {number} height
+ */
 function take4xScreenshot(gl, width, height) {
     var $canvas = $("canvas#newton");
     var $output = $("<div>").appendTo("body").hide();
@@ -159,6 +184,10 @@ function take4xScreenshot(gl, width, height) {
     $a.remove();
 }
 
+/** Render a movie of the demo. Used to record the YouTube videos.
+ *
+ * @param {WebGLRenderingContext} gl
+ */
 function recordMovie(gl) {
     var equation, frame, index;
     var $canvas = $("canvas#newton");

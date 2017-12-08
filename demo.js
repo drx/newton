@@ -15,6 +15,7 @@ function startDemo() {
     var $progressBarBg = $("div.transition-progress-bg");
     $progressBarBg.show();
 }
+
 function stopDemo() {
     demoEnabled = false;
 
@@ -34,6 +35,9 @@ function unpauseDemo() {
     demoPaused = false;
 }
 
+/** Initialize the demo equations array.
+ * Remove all the skipped equations and sort the remaining ones by order.
+ */
 function initDemoEquations() {
     demoEquations = equations;
 
@@ -62,6 +66,9 @@ function selectNextDemo() {
     selectize.setValueSilent(equation);
 }
 
+/** Check if it's time to transition to the next demo
+ *  and update the progress bar.
+ */
 function updateDemo() {
     if (!demoEnabled || demoPaused) {
         return;
