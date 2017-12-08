@@ -1,24 +1,3 @@
-/* TODO Put this in <style /> */
-.webgl-error .hide-on-error {
-    display: none;
-}
-.show-on-error {
-    display: none;
-}
-.webgl-error span.show-on-error {
-    display: inline !important;
-}
-.webgl-error div.show-on-error,
-.webgl-error p.show-on-error,
-.webgl-error h4.show-on-error
-{
-    display: block !important;
-}
-.webgl-error .webgl-error-red {
-    color: #b73b33;
-}
-
-
 div#newton-container {
     height: 45vh;
     border-top: 10px solid #fff;
