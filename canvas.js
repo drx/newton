@@ -1,17 +1,6 @@
 /** Stores the current equation so that we can check if it changed in updateEquation() */
 var currentEquation = null;
 
-function getFile(url) {
-
-    var contents = "";
-
-    $.ajax({method: 'GET', async: false, url: url, success: function(data) {
-        contents = data;
-    }});
-
-    return contents;
-}
-
 /**
  * Check if the current equation changed and update
  * the WebGL program if necessary.

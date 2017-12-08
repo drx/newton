@@ -20,15 +20,26 @@ function compileShader(gl, source, type) {
     return shader;
 }
 
+/** Generate the GLSL program and attach it to the WebGL context
+ *
+ *  1. Generate the equation-specific GLSL and insert it into the shader template.
+ *  2. Compile, attach, link and use the shaders.
+ *  3. Reset time, mouse and keyboard values specific to an equation.
+ *  4. Delete the old program if necessary.
+ *
+ * @param {WebGLRenderingContext} gl
+ * @param {string} equation
+ * @returns {WebGLProgram}
+ */
 function setProgram(gl, equation) {
     var prevProgram = gl.getParameter(gl.CURRENT_PROGRAM);
 
-    var vertexShaderSource = getFile("/static/newton/src/vertex.glsl");
+    var vertexShaderSource = document.getElementById("vertex-shader").text;
     var vertexShader = compileShader(gl, vertexShaderSource, gl.VERTEX_SHADER);
 
     var glsl = generateGlsl(equation, settings.idleFunction);
 
-    var fragmentShaderSource = getFile("/static/newton/src/fragment.glsl");
+    var fragmentShaderSource = document.getElementById("fragment-shader").text;
     fragmentShaderSource = fragmentShaderSource.replace(/%%method%%/g, settings.method.toUpperCase());
     fragmentShaderSource = fragmentShaderSource.replace(/%%idle_function%%/g, glsl.idle);
 
